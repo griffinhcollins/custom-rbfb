@@ -5,15 +5,33 @@
 <h1>Creating Custom RBFB</h1>
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
+    <p>
+        {{ form.topic.label }}
+        {{ form.topic() }}
+        {% for error in form.topic.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
     <table>
         {% for q in form.questions %}
         <tr>
             <td> {{ q.entry.label }} {{loop.index}}: </td>
-            <td> {{ q.entry() }} </td>
-            <td> {{ q.real }} </td>
+            <td> {{ q.entry() }}
+            </td>
+
+
+            <td> {{ q.real() }}
+                {% for error in q.entry.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </td>
+
         </tr>
         {% endfor %}
     </table>
+    <p>
+        {{ form.submit() }}
+    </p>
 </form>
 
 {% endblock %}
