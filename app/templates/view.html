@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<h1>Viewing Custom RBFB {{ id }}</h1>
+<h1>Viewing Custom RBFB: {{ topic }}</h1>
 <table>
     {% for c in candidates %}
     <tr>
         <td> {{ c[0] }} </td>
-        <td> {{ c[1] }} </td>
+        <td> <button type="submit" name="real">Real</button> </td>
+        <td> <button type="submit" name="fake">Fake</button> </td>
     </tr>
     {% endfor %}
 </table>

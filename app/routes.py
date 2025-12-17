@@ -15,8 +15,9 @@ def index():
 def new():
     form = NewRBFB()
     if form.validate_on_submit():
-        flash(f"Created RBFB with topic {form.topic.data}")
         rbfb = RBFB(topic=form.topic.data)
+        rbfb.urlval = hex(hash(str(rbfb.id)))
+        flash(f"Created RBFB with topic {form.topic.data}, url=http://127.0.0.1:5000/view/{rbfb.urlval}")
         db.session.add(rbfb)
         for question in form.questions:
             c = Candidate(value=question.entry.data, real=question.real.data == "r", parent=rbfb)
@@ -25,10 +26,11 @@ def new():
         return redirect(url_for("index"))
     return render_template("new.html", title="New RBFB", form=form)
 
-@app.route("/view/<rbfb_id>")
-def view(rbfb_id):
-    rbfb = db.session.get(RBFB, rbfb_id)
+@app.route("/view/<rbfb_urlval>")
+def view(rbfb_urlval):
+    query = sa.select(RBFB).where(RBFB.urlval == rbfb_urlval)
+    rbfb = db.session.scalars(query).first()
     candidates = []
     for candidate in db.session.scalars(rbfb.candidates.select()).all():
         candidates.append((candidate.value, candidate.real))
-    return render_template("view.html", id=rbfb_id, candidates=candidates)
+    return render_template("view.html", topic=rbfb.topic, candidates=candidates)
