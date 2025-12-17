@@ -23,3 +23,4 @@ class Candidate(db.Model):
 
     def __repr__(self):
         return f'<{self.parent.topic}>: {self.value}, real={self.real}'
+    
