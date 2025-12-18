@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 import sqlalchemy as sa
 from app import app, db
 from app.models import RBFB, Candidate
@@ -26,9 +26,9 @@ def new():
         return redirect(url_for("index"))
     return render_template("new.html", title="New RBFB", form=form)
 
-@app.route("/view/<rbfb_urlval>")
-def view(rbfb_urlval):
-    query = sa.select(RBFB).where(RBFB.urlval == rbfb_urlval)
+@app.route("/view/<urlval>")
+def view(urlval):
+    query = sa.select(RBFB).where(RBFB.urlval == urlval)
     rbfb = db.session.scalars(query).first()
     candidates = []
     for candidate in db.session.scalars(rbfb.candidates.select()).all():

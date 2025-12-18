@@ -2,15 +2,53 @@
 
 {% block content %}
 
-<h1>Viewing Custom RBFB: {{ topic }}</h1>
+
+
+
+
+{# <h1>Viewing Custom RBFB: {{ topic }}</h1> #}
 <table>
     {% for c in candidates %}
-    <tr>
+    <tr id="row-{{ loop.index0 }}" style="display:none">
         <td> {{ c[0] }} </td>
-        <td> <button type="submit" name="real">Real</button> </td>
-        <td> <button type="submit" name="fake">Fake</button> </td>
+        <form>
+            <td id="real-button-{{ loop.index0 }}"> <button type="button" onclick="answerCandidate({{ loop.index0 }}, true)">Real</button> </td>
+            <td id="fake-button-{{ loop.index0 }}"> <button type="button" onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button> </td>
+            <td id="rf-{{ loop.index0 }}"></td>
+        </form>
     </tr>
     {% endfor %}
 </table>
+
+
+<script>
+    const candidateData = {{ candidates| tojson }};
+    console.log(candidateData);
+    var answers = new Array(7);
+    showCandidate(0)
+
+    function answerCandidate(candidateIndex, answer) {
+        let correct = candidateData[candidateIndex][1] == answer
+        document.getElementById("rf-" + candidateIndex).textContent = (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
+        answers[candidateIndex] = (candidateData[candidateIndex][1] == answer)
+        hideButtons(candidateIndex)
+        if (candidateIndex < 6) {
+            showCandidate(candidateIndex + 1)
+        }
+    }
+
+    function hideRow(candidateIndex) {
+        document.getElementById("row-" + candidateIndex).style.display = "none"
+    }
+
+    function hideButtons(candidateIndex){
+        document.getElementById("real-button-" + candidateIndex).style.display = "none"
+        document.getElementById("fake-button-" + candidateIndex).style.display = "none"
+    }
+
+    function showCandidate(candidateIndex) {
+        document.getElementById("row-" + candidateIndex).style.display = "block"
+    }
+</script>
 
 {% endblock %}
