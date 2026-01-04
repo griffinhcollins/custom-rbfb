@@ -3,6 +3,8 @@
 {% block content %}
 
 <h1>Welcome to RBFB Custom</h1>
-
+{% for post in posts|reverse %}
+<p> <a href="/view/{{ post.urlval }}">{{ post.topic }}</a> </p>
+{% endfor %}
 
 {% endblock %}

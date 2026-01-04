@@ -8,7 +8,8 @@ from app.forms import NewRBFB
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html", title="Home")
+    user_posts = db.session.scalars(sa.select(RBFB))
+    return render_template("index.html", title="Home", posts=user_posts)
 
 
 @app.route("/new", methods=["GET", "POST"])
