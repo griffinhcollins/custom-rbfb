@@ -12,7 +12,7 @@
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
-    <table>
+    <table id="centred-table">
         {% for q in form.questions %}
         <tr>
             <td> {{ q.entry.label }} {{loop.index}}: </td>
