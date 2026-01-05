@@ -14,11 +14,13 @@
     {% for c in candidates %}
     <tr id="row-{{ loop.index0 }}" style="display:none">
         <td>
-            <div id="candidate-label">{{ c[0] }} </div>
+            <div id="candidate-label" style="--c: {{ rgb }}">{{ c[0] }} </div>
             <form>
-                <div >
-                    <button id="real-button-{{ loop.index0 }}" type="button" onclick="answerCandidate({{ loop.index0 }}, true)">Real</button>
-                    <button id="fake-button-{{ loop.index0 }}" type="button" onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
+                <div>
+                    <button id="real-button-{{ loop.index0 }}" type="button"
+                        onclick="answerCandidate({{ loop.index0 }}, true)">Real</button>
+                    <button id="fake-button-{{ loop.index0 }}" type="button"
+                        onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
                 </div>
 
                 <div id="rf-{{ loop.index0 }}"></div>

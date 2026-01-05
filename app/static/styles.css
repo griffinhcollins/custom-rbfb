@@ -17,9 +17,9 @@
 }
 
 #candidate-label {
-    background: lightblue;
+    background: rgb(var(--c));
     width: 300px;
-    border: 150px solid lightblue;
+    border: 150px solid rgb(var(--c));
     padding: 20;
     margin: 0px auto;
     font-size: 40px;

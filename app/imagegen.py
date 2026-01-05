@@ -13,4 +13,3 @@ def generate_background(hue, width, height):
         a[:,:,i].fill(rgb[i] * 255)
     return Image.fromarray(a)
 
-

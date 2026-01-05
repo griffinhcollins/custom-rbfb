@@ -3,6 +3,7 @@ import sqlalchemy as sa
 from app import app, db
 from app.models import RBFB, Candidate
 from app.forms import NewRBFB
+import colorsys, random
 
 
 @app.route("/")
@@ -37,7 +38,12 @@ def view(urlval):
     candidates = []
     for candidate in db.session.scalars(rbfb.candidates.select()).all():
         candidates.append((candidate.value, candidate.real))
-    return render_template("view.html", topic=rbfb.topic, candidates=candidates)
+    if rbfb.hue is None:
+        rbfb.hue = random.randint(0, 255)
+        db.session.commit()
+    rgb = colorsys.hsv_to_rgb(rbfb.hue / 255, 0.4, 0.7)
+    rgb_string = f"{rgb[0] * 255} {rgb[1] * 255} {rgb[2] * 255}"
+    return render_template("view.html", topic=rbfb.topic, candidates=candidates, rgb=rgb_string)
 
 
 @app.route("/share/<urlval>")

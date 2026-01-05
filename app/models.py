@@ -10,6 +10,7 @@ class RBFB(db.Model):
     topic: so.Mapped[str] = so.mapped_column(sa.String(64), index=True)
     candidates: so.WriteOnlyMapped["Candidate"] = so.relationship(back_populates="parent")
     urlval: so.Mapped[str] = so.mapped_column(sa.String(8))
+    hue: so.Mapped[str] = so.mapped_column(sa.Integer(), nullable=True)
     def __repr__(self):
         return f'<RBFB {self.topic}>'
 
