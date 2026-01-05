@@ -1,0 +1,48 @@
+* {
+
+    font-family: Vremena, Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+
+#view-table {
+    margin: 0px auto;
+}
+
+#topic-heading {
+
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#candidate-label {
+    background: lightblue;
+    width: 300px;
+    border: 150px solid lightblue;
+    padding: 20;
+    margin: 0px auto;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: Vremena;
+}
+
+#scribble {
+    text-transform: lowercase;
+    font-family: Peppa;
+    font-size: 30px;
+
+}
+
+
+
+@font-face {
+    font-family: Vremena;
+    src: url("fonts/vremena-grotesk/VremenaGrotesk.otf");
+}
+
+@font-face {
+    font-family: Peppa;
+    src: url("fonts/Peppa\ Pig-FontZillion/peppa\ pig.ttf");
+}

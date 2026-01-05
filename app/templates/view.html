@@ -6,18 +6,25 @@
 
 
 
-<h1>Are these real {{ topic }}?</h1>
-<table>
+<h1>
+    <div id="scribble">Are these real</div>
+    <div id="topic-heading">{{ topic }}?</div>
+</h1>
+<table id="view-table">
     {% for c in candidates %}
     <tr id="row-{{ loop.index0 }}" style="display:none">
-        <td> {{ c[0] }} </td>
-        <form>
-            <td id="real-button-{{ loop.index0 }}"> <button type="button"
-                    onclick="answerCandidate({{ loop.index0 }}, true)">Real</button> </td>
-            <td id="fake-button-{{ loop.index0 }}"> <button type="button"
-                    onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button> </td>
-            <td id="rf-{{ loop.index0 }}"></td>
-        </form>
+        <td>
+            <div id="candidate-label">{{ c[0] }} </div>
+            <form>
+                <div >
+                    <button id="real-button-{{ loop.index0 }}" type="button" onclick="answerCandidate({{ loop.index0 }}, true)">Real</button>
+                    <button id="fake-button-{{ loop.index0 }}" type="button" onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
+                </div>
+
+                <div id="rf-{{ loop.index0 }}"></div>
+            </form>
+        </td>
+
     </tr>
     {% endfor %}
 </table>
