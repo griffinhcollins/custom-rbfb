@@ -9,6 +9,13 @@
     margin: 0px auto;
 }
 
+
+[id^="rf-row-"] {
+    color: blue;
+    border-bottom: 1px solid black;
+}
+
+
 #topic-heading {
 
     text-transform: uppercase;

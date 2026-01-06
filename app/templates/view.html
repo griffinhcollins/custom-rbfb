@@ -22,11 +22,17 @@
                     <button id="fake-button-{{ loop.index0 }}" type="button"
                         onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
                 </div>
-
-                <div id="rf-{{ loop.index0 }}"></div>
             </form>
         </td>
+    </tr>
+    {% endfor %}
+</table>
 
+
+<table id="centred-table">
+    {% for c in candidates %}
+    <tr id="rf-row-{{ loop.index0 }}">
+        <td id="rf-cell-{{ loop.index0 }}"></td>
     </tr>
     {% endfor %}
 </table>
@@ -41,11 +47,12 @@
 
     function answerCandidate(candidateIndex, answer) {
         let correct = candidateData[candidateIndex][1] == answer
-        document.getElementById("rf-" + candidateIndex).textContent = (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
+        document.getElementById("rf-cell-" + candidateIndex).textContent = candidateData[candidateIndex][0] + ": " + (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
         answers[candidateIndex] = correct
         hideButtons(candidateIndex)
         if (candidateIndex < 6) {
             showCandidate(candidateIndex + 1)
+            hideRow(candidateIndex)
         } else {
             document.getElementById("score").textContent = "Final Score: " + answers.reduce(((p, c) => p + (c ? 1 : 0)), 0) + "/7"
         }
