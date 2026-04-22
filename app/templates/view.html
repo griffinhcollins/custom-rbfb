@@ -10,30 +10,42 @@
     <div id="scribble">Are these real</div>
     <div id="topic-heading">{{ topic }}?</div>
 </h1>
+
+
+{# Current Candidate #}
 <table id="centred-table">
     {% for c in candidates %}
-    <tr id="row-{{ loop.index0 }}" style="display:none">
+    <tr id="candidate-{{ loop.index0 }}" style="display:none">
         <td>
             <div id="candidate-label" style="--c: {{ rgb }}">{{ c[0] }} </div>
-            <form>
-                <div>
-                    <button id="real-button-{{ loop.index0 }}" type="button"
-                        onclick="answerCandidate({{ loop.index0 }}, true)">Real</button>
-                    <button id="fake-button-{{ loop.index0 }}" type="button"
-                        onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
-                </div>
-            </form>
+
         </td>
     </tr>
     {% endfor %}
 </table>
 
-
+{# Answers #}
 <table id="centred-table">
     {% for c in candidates %}
     <tr id="rf-row-{{ loop.index0 }}">
         <td id="rf-cell-{{ loop.index0 }}"></td>
     </tr>
+    {% endfor %}
+</table>
+
+
+{# Real Fake Buttons #}
+<table id="centred-table">
+    {% for c in candidates %}
+    <form>
+        <tr id="buttons-{{ loop.index0 }}" style="display:none">
+            <td>
+                <button id="real-button-{{ loop.index0 }}" type="button"
+                    onclick="answerCandidate({{ loop.index0 }}, true)">Real</button>
+                <button id="fake-button-{{ loop.index0 }}" type="button"
+                    onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
+            </td>
+    </form>
     {% endfor %}
 </table>
 
@@ -59,16 +71,16 @@
     }
 
     function hideRow(candidateIndex) {
-        document.getElementById("row-" + candidateIndex).style.display = "none"
+        document.getElementById("candidate-" + candidateIndex).style.display = "none"
     }
 
     function hideButtons(candidateIndex) {
-        document.getElementById("real-button-" + candidateIndex).style.display = "none"
-        document.getElementById("fake-button-" + candidateIndex).style.display = "none"
+        document.getElementById("buttons-" + candidateIndex).style.display = "none"
     }
 
     function showCandidate(candidateIndex) {
-        document.getElementById("row-" + candidateIndex).style.display = "block"
+        document.getElementById("candidate-" + candidateIndex).style.display = "block"
+        document.getElementById("buttons-" + candidateIndex).style.display = "block"
     }
 </script>
 
