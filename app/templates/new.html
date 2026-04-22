@@ -20,7 +20,10 @@
             </td>
 
 
-            <td> {{ q.real() }}
+            <td>
+                {{ q.real() }}
+            </td>
+            <td>
                 {% for error in q.entry.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
