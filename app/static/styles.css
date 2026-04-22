@@ -7,12 +7,17 @@
 
 #centred-table {
     margin: 0px auto;
+    border-collapse: collapse;
 }
 
 
 [id^="rf-row-"] {
-    color: blue;
     border-bottom: 1px solid black;
+}
+
+[id^="rf-cell-"] {
+    height: 30px;
+    width: calc(100vw - 100px);
 }
 
 
