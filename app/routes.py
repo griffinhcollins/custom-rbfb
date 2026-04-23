@@ -1,9 +1,12 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, send_file
 import sqlalchemy as sa
 from app import app, db
 from app.models import RBFB, Candidate
 from app.forms import NewRBFB
+from app.imagegen import generate_scorecard
 import colorsys, random
+import io
+import base64
 
 
 @app.route("/")
@@ -24,7 +27,9 @@ def new():
         )
         db.session.add(rbfb)
         for question in form.questions:
-            c = Candidate(value=question.entry.data, real=question.real.data == "r", parent=rbfb)
+            c = Candidate(
+                value=question.entry.data, real=question.real.data == "r", parent=rbfb
+            )
             db.session.add(c)
         db.session.commit()
         return redirect(url_for("share", urlval=rbfb.urlval))
@@ -43,7 +48,20 @@ def view(urlval):
         db.session.commit()
     rgb = colorsys.hsv_to_rgb(rbfb.hue / 255, 0.4, 0.7)
     rgb_string = f"{rgb[0] * 255} {rgb[1] * 255} {rgb[2] * 255}"
-    return render_template("view.html", topic=rbfb.topic, candidates=candidates, rgb=rgb_string)
+    return render_template(
+        "view.html", topic=rbfb.topic, candidates=candidates, rgb=rgb_string
+    )
+
+
+@app.route("/score/<topic>_<rgb>_<score>")
+def score(topic, rgb, score):
+    img = generate_scorecard(rgb, topic, score)
+    im_file = io.BytesIO()
+    img.save(im_file, format="JPEG")
+    im_file.seek(0)
+    return send_file(
+        path_or_file=im_file, download_name="score.jpg", mimetype="image/jpg"
+    )
 
 
 @app.route("/share/<urlval>")

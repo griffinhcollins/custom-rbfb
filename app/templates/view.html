@@ -1,87 +1,100 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-
-
-
+{% extends "base.html" %} {% block content %}
 
 <h1>
-    <div id="scribble">Are these real</div>
-    <div id="topic-heading">{{ topic }}?</div>
+  <div id="scribble">Are these real</div>
+  <div id="topic-heading">{{ topic }}?</div>
 </h1>
-
 
 {# Current Candidate #}
 <table id="centred-table">
-    {% for c in candidates %}
-    <tr id="candidate-{{ loop.index0 }}" style="display:none">
-        <td>
-            <div id="candidate-label" style="--c: {{ rgb }}">{{ c[0] }} </div>
-
-        </td>
-    </tr>
-    {% endfor %}
+  {% for c in candidates %}
+  <tr id="candidate-{{ loop.index0 }}" style="display: none">
+    <td>
+      <div id="candidate-label" style="--c: {{ rgb }}">{{ c[0] }}</div>
+    </td>
+  </tr>
+  {% endfor %}
 </table>
 
 {# Answers #}
 <table id="centred-table">
-    {% for c in candidates %}
-    <tr id="rf-row-{{ loop.index0 }}">
-        <td id="rf-cell-{{ loop.index0 }}"></td>
-    </tr>
-    {% endfor %}
+  {% for c in candidates %}
+  <tr id="rf-row-{{ loop.index0 }}">
+    <td id="rf-cell-{{ loop.index0 }}"></td>
+  </tr>
+  {% endfor %}
 </table>
-
 
 {# Real Fake Buttons #}
 <table id="centred-table">
-    {% for c in candidates %}
-    <form>
-        <tr id="buttons-{{ loop.index0 }}" style="display:none">
-            <td>
-                <button id="real-button-{{ loop.index0 }}" type="button"
-                    onclick="answerCandidate({{ loop.index0 }}, true)">Real</button>
-                <button id="fake-button-{{ loop.index0 }}" type="button"
-                    onclick="answerCandidate({{ loop.index0 }}, false)">Fake</button>
-            </td>
-    </form>
-    {% endfor %}
+  {% for c in candidates %}
+  <form>
+    <tr id="buttons-{{ loop.index0 }}" style="display: none">
+      <td>
+        <button
+          id="real-button-{{ loop.index0 }}"
+          type="button"
+          onclick="answerCandidate({{ loop.index0 }}, true)"
+        >
+          Real
+        </button>
+        <button
+          id="fake-button-{{ loop.index0 }}"
+          type="button"
+          onclick="answerCandidate({{ loop.index0 }}, false)"
+        >
+          Fake
+        </button>
+      </td>
+    </tr>
+  </form>
+  {% endfor %}
 </table>
 
 <h1 id="score"></h1>
 
+
+<img id="score-image">
+
 <script>
-    const candidateData = {{ candidates| tojson }};
-    console.log(candidateData);
-    var answers = new Array(7);
-    showCandidate(0)
+  const candidateData = {{ candidates| tojson }};
+  console.log(candidateData);
+  var answers = new Array(7);
+  showCandidate(0)
 
-    function answerCandidate(candidateIndex, answer) {
-        let correct = candidateData[candidateIndex][1] == answer
-        document.getElementById("rf-cell-" + candidateIndex).textContent = candidateData[candidateIndex][0] + ": " + (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
-        answers[candidateIndex] = correct
-        hideButtons(candidateIndex)
-        if (candidateIndex < 6) {
-            showCandidate(candidateIndex + 1)
-            hideRow(candidateIndex)
-        } else {
-            document.getElementById("score").textContent = "Final Score: " + answers.reduce(((p, c) => p + (c ? 1 : 0)), 0) + "/7"
-        }
-    }
+  async function answerCandidate(candidateIndex, answer) {
+      let correct = candidateData[candidateIndex][1] == answer
+      document.getElementById("rf-cell-" + candidateIndex).textContent = candidateData[candidateIndex][0] + ": " + (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
+      answers[candidateIndex] = correct
+      hideButtons(candidateIndex)
+      if (candidateIndex < 6) {
+          showCandidate(candidateIndex + 1)
+          hideRow(candidateIndex)
+      } else {
+          let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
+          document.getElementById("score").textContent = "Final Score: " + score + "/7"
+          let imageElement = document.getElementById("score-image")
+          fetch("/score/{{ topic }}_{{ rgb }}_" + score)
+          .then(r => r.blob())
+          .then(blob => {
+            let imgURL = URL.createObjectURL(blob)
+            imageElement.src = imgURL
+          })
+      }
+  }
 
-    function hideRow(candidateIndex) {
-        document.getElementById("candidate-" + candidateIndex).style.display = "none"
-    }
+  function hideRow(candidateIndex) {
+      document.getElementById("candidate-" + candidateIndex).style.display = "none"
+  }
 
-    function hideButtons(candidateIndex) {
-        document.getElementById("buttons-" + candidateIndex).style.display = "none"
-    }
+  function hideButtons(candidateIndex) {
+      document.getElementById("buttons-" + candidateIndex).style.display = "none"
+  }
 
-    function showCandidate(candidateIndex) {
-        document.getElementById("candidate-" + candidateIndex).style.display = "block"
-        document.getElementById("buttons-" + candidateIndex).style.display = "block"
-    }
+  function showCandidate(candidateIndex) {
+      document.getElementById("candidate-" + candidateIndex).style.display = "block"
+      document.getElementById("buttons-" + candidateIndex).style.display = "block"
+  }
 </script>
 
 {% endblock %}
