@@ -83,7 +83,9 @@
       row.classList.add("wrong")
     }
     // Wait for that to be done before hiding this row and moving onto next
-    row.addEventListener("transitionend", function handler() {
+    row.addEventListener("transitionend", function handler(e) {
+      if (e.propertyName !== "opacity") return;
+      row.removeEventListener("transitionend", handler)
       hideRow(candidateIndex)
       // Game over: calculate score
       if (candidateIndex == 6) {
@@ -91,7 +93,7 @@
         imageElement.src = imgURL
         document.getElementById("candidate-container").style.display = "none"
       }
-    }, { once: true })
+    })
   }
 
   function hideRow(candidateIndex) {

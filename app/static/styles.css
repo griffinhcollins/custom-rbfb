@@ -15,7 +15,9 @@
     border-bottom: 1px solid black;
 }
 
-[id^="rf-name-"], [id^="rf-tick-"], [id^="rf-truth-"] {
+[id^="rf-name-"],
+[id^="rf-tick-"],
+[id^="rf-truth-"] {
     height: 30px;
     width: calc(100vw - 100px);
 }
@@ -60,24 +62,56 @@
     font-family: Vremena;
     overflow: visible;
 
-    transition: transform 0.5s ease-in, opacity 0.5s ease-in-out, background 0.5s ease-out
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out 0.7s
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-15px);
+    }
+
+    40% {
+        transform: translateX(15px);
+    }
+
+    60% {
+        transform: translateX(-15px);
+    }
+
+    80% {
+        transform: translateX(15px);
+    }
+}
+
+.wrong {
+    animation: shake 0.5s ease-in-out
 }
 
 .wrong #candidate-label {
     background: black;
+    color: white;
 }
 
-.slide-left, .slide-right {
+.slide-left,
+.slide-right {
     z-index: 2;
 }
 
 .slide-left #candidate-label {
-    transform: translateX(-50%) rotate(-35deg);
+    transform-origin: bottom center;
+    transform: rotate(-15deg);
     opacity: 0;
 }
 
 .slide-right #candidate-label {
-    transform: translateX(50%) rotate(35deg);
+    transform-origin: bottom center;
+    transform: rotate(15deg);
     opacity: 0;
 }
 
