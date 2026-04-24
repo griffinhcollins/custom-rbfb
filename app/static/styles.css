@@ -4,6 +4,10 @@
     text-align: center;
 }
 
+body {
+    background-color: #f0f0f0;
+}
+
 
 #centred-table {
     margin: 0px auto;
