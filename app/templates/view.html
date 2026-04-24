@@ -6,21 +6,23 @@
 </h1>
 
 {# Current Candidate #}
-<table id="centred-table">
+<div id="candidate-container">
   {% for c in candidates %}
-  <tr id="candidate-{{ loop.index0 }}" style="display: none">
-    <td>
+  <div id="candidate-{{ loop.index0 }}" class="candidate" style="display: none">
+    <div>
       <div id="candidate-label" style="--c: {{ rgb }}">{{ c[0] }}</div>
-    </td>
-  </tr>
+    </div>
+  </div>
   {% endfor %}
-</table>
+</div>
 
 {# Answers #}
 <table id="centred-table">
   {% for c in candidates %}
   <tr id="rf-row-{{ loop.index0 }}">
-    <td id="rf-cell-{{ loop.index0 }}"></td>
+    <td id="rf-truth-{{ loop.index0 }}"></td>
+    <td id="rf-name-{{ loop.index0 }}"></td>
+    <td id="rf-tick-{{ loop.index0 }}"></td>
   </tr>
   {% endfor %}
 </table>
@@ -31,19 +33,11 @@
   <form>
     <tr id="buttons-{{ loop.index0 }}" style="display: none">
       <td>
-        <button
-          id="real-button-{{ loop.index0 }}"
-          type="button"
-          onclick="answerCandidate({{ loop.index0 }}, true)"
-        >
-          Real
-        </button>
-        <button
-          id="fake-button-{{ loop.index0 }}"
-          type="button"
-          onclick="answerCandidate({{ loop.index0 }}, false)"
-        >
+        <button id="fake-button-{{ loop.index0 }}" type="button" onclick="answerCandidate({{ loop.index0 }}, false)">
           Fake
+        </button>
+        <button id="real-button-{{ loop.index0 }}" type="button" onclick="answerCandidate({{ loop.index0 }}, true)">
+          Real
         </button>
       </td>
     </tr>
@@ -62,37 +56,50 @@
   showCandidate(0)
 
   async function answerCandidate(candidateIndex, answer) {
-      let correct = candidateData[candidateIndex][1] == answer
-      document.getElementById("rf-cell-" + candidateIndex).textContent = candidateData[candidateIndex][0] + ": " + (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
-      answers[candidateIndex] = correct
-      hideButtons(candidateIndex)
+    let correct = candidateData[candidateIndex][1] == answer
+    document.getElementById("rf-truth-" + candidateIndex).textContent = (candidateData[candidateIndex][1] ? "Real " : "Fake ")
+    document.getElementById("rf-name-" + candidateIndex).textContent = candidateData[candidateIndex][0]
+    document.getElementById("rf-tick-" + candidateIndex).textContent = (correct ? "✓" : "X")
+    
+    answers[candidateIndex] = correct
+    hideButtons(candidateIndex)
+    let row = document.getElementById("candidate-" + candidateIndex)
+    if (candidateIndex < 6) {
+      showCandidate(candidateIndex + 1)
+    }
+    row.classList.add(candidateData[candidateIndex][1] ? "slide-right" : "slide-left")
+    if (!correct){
+      row.classList.add("wrong")
+    }
+    // This triggers the animation, so we need to wait for that to be done before hiding this row and moving onto next
+    row.addEventListener("transitionend", function handler() {
       hideRow(candidateIndex)
-      if (candidateIndex < 6) {
-          showCandidate(candidateIndex + 1)
-      } else {
-          let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
-          document.getElementById("score").textContent = "Final Score: " + score + "/7"
-          let imageElement = document.getElementById("score-image")
-          fetch("/score/{{ topic }}_{{ rgb }}_" + score)
+      // Game over: calculate score
+      if (candidateIndex == 6) {
+        let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
+        document.getElementById("score").textContent = "Final Score: " + score + "/7"
+        let imageElement = document.getElementById("score-image")
+        fetch("/score/{{ topic }}_{{ rgb }}_" + score)
           .then(r => r.blob())
           .then(blob => {
             let imgURL = URL.createObjectURL(blob)
             imageElement.src = imgURL
           })
       }
+    }, {once: true})
   }
 
   function hideRow(candidateIndex) {
-      document.getElementById("candidate-" + candidateIndex).style.display = "none"
+    document.getElementById("candidate-" + candidateIndex).style.display = "none"
   }
 
   function hideButtons(candidateIndex) {
-      document.getElementById("buttons-" + candidateIndex).style.display = "none"
+    document.getElementById("buttons-" + candidateIndex).style.display = "none"
   }
 
   function showCandidate(candidateIndex) {
-      document.getElementById("candidate-" + candidateIndex).style.display = "block"
-      document.getElementById("buttons-" + candidateIndex).style.display = "block"
+    document.getElementById("candidate-" + candidateIndex).style.display = "block"
+    document.getElementById("buttons-" + candidateIndex).style.display = "block"
   }
 </script>
 

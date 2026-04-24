@@ -15,7 +15,7 @@
     border-bottom: 1px solid black;
 }
 
-[id^="rf-cell-"] {
+[id^="rf-name-"], [id^="rf-tick-"], [id^="rf-truth-"] {
     height: 30px;
     width: calc(100vw - 100px);
 }
@@ -26,6 +26,23 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 40px;
+}
+
+#candidate-container {
+    position: relative;
+    width: 600px;
+    max-width: calc(100vw - 100px);
+    height: 300px;
+    margin: 0px auto;
+}
+
+.candidate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 #candidate-label {
@@ -42,6 +59,26 @@
     font-weight: bold;
     font-family: Vremena;
     overflow: visible;
+
+    transition: transform 0.5s ease-in, opacity 0.5s ease-in-out, background 0.5s ease-out
+}
+
+.wrong #candidate-label {
+    background: black;
+}
+
+.slide-left, .slide-right {
+    z-index: 2;
+}
+
+.slide-left #candidate-label {
+    transform: translateX(-50%) rotate(-35deg);
+    opacity: 0;
+}
+
+.slide-right #candidate-label {
+    transform: translateX(50%) rotate(35deg);
+    opacity: 0;
 }
 
 #scribble {
