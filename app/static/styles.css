@@ -30,9 +30,9 @@
 
 #candidate-container {
     position: relative;
-    width: 600px;
+    width: 500px;
     max-width: calc(100vw - 100px);
-    height: 300px;
+    height: 400px;
     margin: 0px auto;
 }
 
@@ -47,9 +47,9 @@
 
 #candidate-label {
     background: rgb(var(--c));
-    width: 600px;
+    width: 500px;
     max-width: calc(100vw - 100px);
-    height: 300px;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;

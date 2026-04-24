@@ -5,6 +5,9 @@
   <div id="topic-heading">{{ topic }}?</div>
 </h1>
 
+{# Score image at the end #}
+<img id="score-image" />
+
 {# Current Candidate #}
 <div id="candidate-container">
   {% for c in candidates %}
@@ -45,9 +48,7 @@
   {% endfor %}
 </table>
 
-<h1 id="score"></h1>
 
-<img id="score-image" />
 
 <script>
   const candidateData = {{ candidates| tojson }};
@@ -60,33 +61,37 @@
     document.getElementById("rf-truth-" + candidateIndex).textContent = (candidateData[candidateIndex][1] ? "Real " : "Fake ")
     document.getElementById("rf-name-" + candidateIndex).textContent = candidateData[candidateIndex][0]
     document.getElementById("rf-tick-" + candidateIndex).textContent = (correct ? "✓" : "X")
-    
+
     answers[candidateIndex] = correct
-    hideButtons(candidateIndex)
-    let row = document.getElementById("candidate-" + candidateIndex)
-    if (candidateIndex < 6) {
+    let imgURL = ""
+    // Start generating the score card if we're done
+    if (candidateIndex == 6) {
+      let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
+      fetch("/score/{{ topic }}_{{ rgb }}_" + score)
+        .then(r => r.blob())
+        .then(blob => {
+          imgURL = URL.createObjectURL(blob)
+        })
+    } else {
       showCandidate(candidateIndex + 1)
     }
+    hideButtons(candidateIndex)
+    // Trigger the animation
+    let row = document.getElementById("candidate-" + candidateIndex)
     row.classList.add(candidateData[candidateIndex][1] ? "slide-right" : "slide-left")
-    if (!correct){
+    if (!correct) {
       row.classList.add("wrong")
     }
-    // This triggers the animation, so we need to wait for that to be done before hiding this row and moving onto next
+    // Wait for that to be done before hiding this row and moving onto next
     row.addEventListener("transitionend", function handler() {
       hideRow(candidateIndex)
       // Game over: calculate score
       if (candidateIndex == 6) {
-        let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
-        document.getElementById("score").textContent = "Final Score: " + score + "/7"
         let imageElement = document.getElementById("score-image")
-        fetch("/score/{{ topic }}_{{ rgb }}_" + score)
-          .then(r => r.blob())
-          .then(blob => {
-            let imgURL = URL.createObjectURL(blob)
-            imageElement.src = imgURL
-          })
+        imageElement.src = imgURL
+        document.getElementById("candidate-container").style.display = "none"
       }
-    }, {once: true})
+    }, { once: true })
   }
 
   function hideRow(candidateIndex) {
