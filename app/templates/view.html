@@ -53,8 +53,7 @@
 
 <h1 id="score"></h1>
 
-
-<img id="score-image">
+<img id="score-image" />
 
 <script>
   const candidateData = {{ candidates| tojson }};
@@ -67,9 +66,9 @@
       document.getElementById("rf-cell-" + candidateIndex).textContent = candidateData[candidateIndex][0] + ": " + (candidateData[candidateIndex][1] ? "Real " : "Fake ") + (correct ? "✓" : "X")
       answers[candidateIndex] = correct
       hideButtons(candidateIndex)
+      hideRow(candidateIndex)
       if (candidateIndex < 6) {
           showCandidate(candidateIndex + 1)
-          hideRow(candidateIndex)
       } else {
           let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
           document.getElementById("score").textContent = "Final Score: " + score + "/7"
