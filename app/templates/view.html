@@ -20,10 +20,10 @@
 </div>
 
 {# Answers #}
-<table id="centred-table">
+<table id="answer-table">
   {% for c in candidates %}
   <tr id="rf-row-{{ loop.index0 }}">
-    <td id="rf-truth-{{ loop.index0 }}"></td>
+    <td id="rf-truth-{{ loop.index0 }}"> <span id="rf-truth-span"></span></td>
     <td id="rf-name-{{ loop.index0 }}"></td>
     <td id="rf-tick-{{ loop.index0 }}"></td>
   </tr>
@@ -58,20 +58,19 @@
 
   async function answerCandidate(candidateIndex, answer) {
     let correct = candidateData[candidateIndex][1] == answer
-    document.getElementById("rf-truth-" + candidateIndex).textContent = (candidateData[candidateIndex][1] ? "Real " : "Fake ")
+    document.getElementById("rf-truth-" + candidateIndex).textContent = (candidateData[candidateIndex][1] ? "Real" : "Fake")
+    document.getElementById("rf-truth-" + candidateIndex).classList.add(candidateData[candidateIndex][1] ? "real" : "fake")
     document.getElementById("rf-name-" + candidateIndex).textContent = candidateData[candidateIndex][0]
-    document.getElementById("rf-tick-" + candidateIndex).textContent = (correct ? "✓" : "X")
+    document.getElementById("rf-tick-" + candidateIndex).textContent = (correct ? "✔" : "✖")
 
     answers[candidateIndex] = correct
-    let imgURL = ""
+    let imgPromise = null
     // Start generating the score card if we're done
     if (candidateIndex == 6) {
       let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
-      fetch("/score/{{ topic }}_{{ rgb }}_" + score)
+      imgPromise = fetch("/score/{{ topic }}_{{ rgb }}_" + score)
         .then(r => r.blob())
-        .then(blob => {
-          imgURL = URL.createObjectURL(blob)
-        })
+        .then(blob => URL.createObjectURL(blob))
     } else {
       showCandidate(candidateIndex + 1)
     }
@@ -89,9 +88,12 @@
       hideRow(candidateIndex)
       // Game over: calculate score
       if (candidateIndex == 6) {
-        let imageElement = document.getElementById("score-image")
-        imageElement.src = imgURL
         document.getElementById("candidate-container").style.display = "none"
+        document.getElementById("answer-table").style.display = "none"
+        
+        imgPromise.then(imgURL => {
+          document.getElementById("score-image").src = imgURL
+        })
       }
     })
   }

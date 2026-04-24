@@ -10,6 +10,12 @@
     border-collapse: collapse;
 }
 
+#answer-table {
+    margin: 0px auto;
+    border-collapse: collapse;
+
+}
+
 
 [id^="rf-row-"] {
     border-bottom: 1px solid black;
@@ -18,8 +24,35 @@
 [id^="rf-name-"],
 [id^="rf-tick-"],
 [id^="rf-truth-"] {
-    height: 30px;
-    width: calc(100vw - 100px);
+    height: 32px;
+    width: calc(30vw);
+}
+
+[id^="rf-name-"] {
+    text-transform: uppercase;
+}
+
+
+.real,
+.fake {
+    display: inline-block;
+    font-family: Peppa;
+    rotate: -10deg;
+    width: 40px;
+    height: 22px;
+    border-radius: 5px;
+    translate: 0 5px;
+}
+
+.real {
+    text-transform: lowercase;
+    background-color: cornflowerblue;
+}
+
+.fake {
+    text-transform: uppercase;
+    color: white;
+    background-color: black;
 }
 
 
