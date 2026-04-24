@@ -6,7 +6,15 @@
 </h1>
 
 {# Score image at the end #}
-<img id="score-image" />
+<div id="score-layout" style="display: none">
+  <div><img id="score-image" /></div>
+  <div>
+    <form action="{{ url_for('index') }}">
+      <input type="submit" value="Return Home" />
+    </form>
+  </div>
+
+</div>
 
 {# Current Candidate #}
 <div id="candidate-container">
@@ -90,9 +98,10 @@
       if (candidateIndex == 6) {
         document.getElementById("candidate-container").style.display = "none"
         document.getElementById("answer-table").style.display = "none"
-        
+
         imgPromise.then(imgURL => {
           document.getElementById("score-image").src = imgURL
+          document.getElementById("score-layout").style.display = "block"
         })
       }
     })
