@@ -20,8 +20,8 @@
 <div id="candidate-container">
   {% for c in candidates %}
   <div id="candidate-{{ loop.index0 }}" class="candidate" style="display: none">
-    <div>
-      <div id="candidate-label" style="--c: {{ rgb }}">{{ c[0] }}</div>
+    <div id="candidate-label" style="--c: {{ rgb }}">
+      {{ c[0] }}
     </div>
   </div>
   {% endfor %}
