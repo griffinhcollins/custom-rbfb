@@ -23,7 +23,6 @@ def generate_scorecard(rgb: str, topic: str, score: str):
 
     # Sort out fonts
     sf = SimPILFont('app/static/fonts/vremena-grotesk', 'app/static/fonts/Peppa Pig-FontZillion')
-    sf.export()
     topic_font = sf('VremenaGrotesk 64 bold').font
     score_font = sf('PeppaPig 32').font
 
