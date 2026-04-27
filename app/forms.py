@@ -9,6 +9,6 @@ class NewEntry(Form):
 
 
 class NewRBFB(FlaskForm):
-    topic = StringField("Topic: ", validators=[DataRequired()])
+    topic = StringField("Topic: ", validators=[DataRequired(), Length(max=40, message="Too long!")])
     questions = FieldList(FormField(NewEntry), min_entries=7)
     submit = SubmitField("Save")
