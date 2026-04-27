@@ -22,13 +22,13 @@ def new():
     if form.validate_on_submit():
         rbfb = RBFB(topic=form.topic.data)
         rbfb.urlval = hex(hash(str(rbfb.id)))
-        flash(
-            f"Created RBFB with topic {form.topic.data}, share here: http://127.0.0.1:5000/view/{rbfb.urlval}"
-        )
+        # flash(
+        #     f"Created RBFB with topic {form.topic.data}, share here: http://127.0.0.1:5000/view/{rbfb.urlval}"
+        # )
         db.session.add(rbfb)
         for question in form.questions:
             c = Candidate(
-                value=question.entry.data, real=question.real.data == "r", parent=rbfb
+                value=question.entry.data, real=question.real.data, parent=rbfb
             )
             db.session.add(c)
         db.session.commit()

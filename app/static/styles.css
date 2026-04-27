@@ -21,7 +21,8 @@ body {
 }
 
 [id^="fake-button-"],
-[id^="real-button-"] {
+[id^="real-button-"],
+#submit {
     margin: 10px;
     border-radius: 32px;
     text-transform: uppercase;
@@ -31,10 +32,22 @@ body {
     font-size: 20px;
     padding: 15px 32px;
     box-shadow: 0px 5px 0px 1px black, 0 0 0 2px black;
+
+}
+
+#submit {
+    padding: 7px 16px;
 }
 
 [id^="fake-button-"]:hover,
-[id^="real-button-"]:hover {
+[id^="real-button-"]:hover,
+#submit:hover {
+    background-color: khaki;
+}
+
+[id^="fake-button-"]:active,
+[id^="real-button-"]:active,
+#submit:active {
     box-shadow: 0 0 0 2px black;
     transform: translateY(3px);
 }
@@ -183,6 +196,49 @@ body {
 
 }
 
+
+/* new.html */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background-color: black;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.switch input:checked+.slider {
+    background-color: cornflowerblue;
+}
+
+.switch input:checked+.slider::before {
+    transform: translateX(30px);
+}
 
 
 @font-face {

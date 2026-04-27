@@ -12,23 +12,31 @@
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
-    <table id="centred-table">
+    <table id="centred-table" style="white-space: nowrap">
         {% for q in form.questions %}
         <tr>
-            <td> {{ q.entry.label }} {{loop.index}}: </td>
+            <td> {{loop.index}}: </td>
             <td> {{ q.entry() }}
             </td>
 
 
             <td>
-                {{ q.real() }}
+                <div class="fake">fake</div>
+                <label class="switch">
+                    {{ q.real() }}
+                    <span class="slider"></span>
+                </label>
+                <div class="real">real</div>
             </td>
+
+
+        </tr>
+        <tr>
             <td>
                 {% for error in q.entry.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </td>
-
         </tr>
         {% endfor %}
     </table>
