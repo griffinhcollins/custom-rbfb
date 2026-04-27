@@ -31,7 +31,16 @@ def generate_scorecard(rgb: str, topic: str, score: str):
     draw.text((250,100), f"you got {score}/7", (0,0,0), font=score_font, align="center", anchor="ms")
 
     # Topic text
-    draw.text((250,200), topic.upper(), (0,0,0), font=topic_font, align="center", anchor="ms")
+    topic_text = topic.upper()
+    if len(topic_text) > 10:
+        print(topic_text)
+        if " " in topic_text:
+            topic_text = topic_text.replace(" ", "\n")
+        for word in topic_text.split("\n"):
+            if len(word) > 10:
+                topic_font = sf('VremenaGrotesk 48 bold').font
+    print(topic_text)
+    draw.text((250,200), topic_text, (0,0,0), font=topic_font, align="center", anchor="ms")
 
     return img
     
