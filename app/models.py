@@ -1,6 +1,7 @@
 from typing import List
 import sqlalchemy as sa
 import sqlalchemy.orm as so
+from datetime import date
 
 from app import db
 
@@ -11,6 +12,8 @@ class RBFB(db.Model):
     candidates: so.WriteOnlyMapped["Candidate"] = so.relationship(back_populates="parent")
     urlval: so.Mapped[str] = so.mapped_column(sa.String(8))
     hue: so.Mapped[str] = so.mapped_column(sa.Integer(), nullable=True)
+    author: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, default="Anonymous")
+    date: so.Mapped[date] = so.mapped_column(sa.Date(), index=True, default=date(2026, 4, 27))
     def __repr__(self):
         return f'<RBFB {self.topic}>'
 
