@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #f0f0f0;
+    background-color: #fffded;
 }
 
 
@@ -19,6 +19,23 @@ body {
     border-collapse: collapse;
 
 }
+
+[id^="fake-button-"],
+[id^="real-button-"] {
+    border-radius: 32px;
+    text-transform: uppercase;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    font-size: 20px;
+    padding: 15px 32px;
+    box-shadow: 0px 5px 0px 0px;
+}
+
+/* 
+[id^="fake-button-"] {
+
+} */
 
 
 [id^="rf-row-"] {
