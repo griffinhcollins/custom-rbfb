@@ -35,6 +35,16 @@ body {
 
 }
 
+.nav a {
+    text-decoration: none;
+    padding: 2px 5px;
+    background-color: white;
+    border: solid 2px black;
+    border-radius: 32px;
+    color: black;
+    
+}
+
 #submit {
     padding: 7px 16px;
 }

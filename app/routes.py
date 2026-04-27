@@ -64,7 +64,6 @@ def score(topic, rgb, score):
     )
 
 
-@app.route("/share/<urlval>")
-def share(urlval):
-    shareurl = f"http://127.0.0.1:5000/view/{urlval}"
-    return render_template("share.html", url=shareurl)
+@app.route("/credits")
+def credits():
+    return render_template("credits.html")
