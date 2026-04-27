@@ -22,14 +22,21 @@ body {
 
 [id^="fake-button-"],
 [id^="real-button-"] {
+    margin: 10px;
     border-radius: 32px;
     text-transform: uppercase;
     color: black;
     background-color: white;
-    border: 2px solid black;
+    border: none;
     font-size: 20px;
     padding: 15px 32px;
-    box-shadow: 0px 5px 0px 0px;
+    box-shadow: 0px 5px 0px 1px black, 0 0 0 2px black;
+}
+
+[id^="fake-button-"]:hover,
+[id^="real-button-"]:hover {
+    box-shadow: 0 0 0 2px black;
+    transform: translateY(3px);
 }
 
 /* 
@@ -81,14 +88,14 @@ body {
 
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 32px;
 }
 
 #candidate-container {
     position: relative;
-    width: 500px;
+    width: 380px;
     max-width: calc(100vw - 100px);
-    height: 400px;
+    height: 250px;
     margin: 0px auto;
 }
 
@@ -103,9 +110,9 @@ body {
 
 #candidate-label {
     background: rgb(var(--c));
-    width: 500px;
+    width: 380px;
     max-width: calc(100vw - 100px);
-    height: 400px;
+    height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,7 +179,7 @@ body {
 #scribble {
     text-transform: lowercase;
     font-family: Peppa;
-    font-size: 30px;
+    font-size: 24px;
 
 }
 
