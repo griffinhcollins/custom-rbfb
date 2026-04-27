@@ -7,5 +7,19 @@
     Share link:
     <a href="{{ url }}"> {{ url }} </a>
 </p>
+<div>
+    <button onclick="copy_to_clipboard('{{ url }}')" id="submit">Copy</button>
+</div>
+<div id="copied-to-clipboard" style="display: none">
+    Copied to clipboard!
+</div>
+
+<script>
+
+    function copy_to_clipboard(text) {
+        navigator.clipboard.writeText(text);
+        document.getElementById("copied-to-clipboard").style.display = "block"
+    }
+</script>
 
 {% endblock %}
