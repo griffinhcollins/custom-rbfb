@@ -8,6 +8,8 @@
     <p>
         {{ form.topic.label }}
         {{ form.topic() }}
+        {{ form.author.label }}
+        {{ form.author() }}
         {% for error in form.topic.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -40,6 +42,7 @@
         </tr>
         {% endfor %}
     </table>
+    
     <p>
         {{ form.submit() }}
     </p>
