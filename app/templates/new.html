@@ -5,11 +5,20 @@
 <h1>Creating Custom RBFB</h1>
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
+    <table id="centred-table">
+        <tr>
+            <td>{{ form.topic.label }}</td>
+            <td>
+                {{ form.topic() }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.author.label }}</td>
+            <td>
+                {{ form.author() }}</td>
+        </tr>
+
+    </table>
     <p>
-        {{ form.topic.label }}
-        {{ form.topic() }}
-        {{ form.author.label }}
-        {{ form.author() }}
         {% for error in form.topic.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -42,7 +51,7 @@
         </tr>
         {% endfor %}
     </table>
-    
+
     <p>
         {{ form.submit() }}
     </p>
