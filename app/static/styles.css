@@ -14,6 +14,16 @@ body {
     border-collapse: collapse;
 }
 
+
+/* Index */
+#index-table{
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 20px 10px;
+}
+
+/* View */
+
 #answer-table {
     margin: 0px auto;
     border-collapse: collapse;

@@ -3,8 +3,24 @@
 {% block content %}
 
 <h1>Welcome to RBFB Custom</h1>
-{% for post in posts|reverse %}
-<p> <a href="/view/{{ post.urlval }}">{{ post.topic }}</a> </p>
-{% endfor %}
+<table id="index-table">
+<th>Topic</th>
+<th>Author</th>
+<th>Date Created</th>
+    {% for post in posts|reverse %}
+    <tr>
+        <td>
+            <a href="/view/{{ post.urlval }}">{{ post.topic }}</a>
+        </td>
+        <td>
+            <div>{{ post.author }}</a>
+        </td>
+        <td>
+            <div>{{ post.date }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
 
 {% endblock %}
