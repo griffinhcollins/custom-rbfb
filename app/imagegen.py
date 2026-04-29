@@ -1,6 +1,10 @@
 from PIL import Image, ImageDraw
 from simpilfont import SimPILFont
 import colorsys
+import os
+
+basedir = os.path.dirname(os.path.abspath(__file__))
+
 
 
 
@@ -12,7 +16,7 @@ def generate_scorecard(rgb: str, topic: str, score: str):
     draw = ImageDraw.Draw(img)
 
     # Sort out fonts
-    sf = SimPILFont('app/static/fonts/vremena-grotesk', 'app/static/fonts/Peppa Pig-FontZillion')
+    sf = SimPILFont(os.path.join(basedir, 'static/fonts/vremena-grotesk'), os.path.join(basedir, 'static/fonts/Peppa Pig-FontZillion'))
     topic_font = sf('VremenaGrotesk 64 bold').font
     score_font = sf('PeppaPig 32').font
 
