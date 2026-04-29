@@ -3,7 +3,7 @@ from simpilfont import SimPILFont
 import colorsys
 import os
 
-basedir = os.path.dirname(os.path.abspath(__file__))
+basedir = '/home/griffin/personal-website/custom-rbfb/app'
 
 
 
