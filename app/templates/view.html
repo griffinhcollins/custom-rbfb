@@ -76,7 +76,7 @@
     // Start generating the score card if we're done
     if (candidateIndex == 6) {
       let score = answers.reduce(((p, c) => p + (c ? 1 : 0)), 0);
-      imgPromise = fetch("/score/{{ topic }}_" + encodeURIComponent("{{ rgb }}") + "_" + score)
+      imgPromise = fetch("/score?topic=" + encodeURIComponent("{{ topic }}") + "&rgb=" + encodeURIComponent("{{ rgb }}") + "&score=" + score)
         .then(r => r.blob())
         .then(blob => URL.createObjectURL(blob))
     } else {

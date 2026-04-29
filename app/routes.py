@@ -56,8 +56,11 @@ def view(urlval):
     )
 
 
-@app.route("/score/<topic>_<path:rgb>_<score>")
-def score(topic, rgb, score):
+@app.route("/score")
+def score():
+    topic = request.args.get('topic')
+    rgb = request.args.get('rgb')
+    score = request.args.get('score')
     img = generate_scorecard(rgb, topic, score)
     im_file = io.BytesIO()
     img.save(im_file, format="JPEG")
