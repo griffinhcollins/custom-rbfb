@@ -37,7 +37,7 @@ def generate_scorecard(rgb: str, topic: str, score: str):
             topic_text = topic_text.replace(" ", "\n")
         for word in topic_text.split("\n"):
             if len(word) > 10:
-                topic_font = sf('VremenaGrotesk 48 bold').font
+                topic_font = ImageFont.truetype(base_folder + "/static/fonts/vremena-grotesk/Vremena.ttf", 48)
     draw.text((250,200), topic_text, (0,0,0), font=topic_font, align="center", anchor="ms")
 
     return img
