@@ -1,11 +1,11 @@
-from PIL import Image, ImageDraw
-from simpilfont import SimPILFont
+from PIL import Image, ImageDraw, ImageFont
+# from simpilfont import SimPILFont
 import colorsys
 import os
 
-basedir = '/home/griffin/personal-website/custom-rbfb/app'
+basedir = os.path.dirname(os.path.abspath(__file__))
 
-
+print(basedir)
 
 
 
@@ -16,11 +16,15 @@ def generate_scorecard(rgb: str, topic: str, score: str):
     draw = ImageDraw.Draw(img)
 
     # Sort out fonts
-    sf = SimPILFont(os.path.join(basedir, 'static/fonts/vremena-grotesk') + '/', 
-                    os.path.join(basedir, 'static/fonts/Peppa Pig-FontZillion') + '/')
-    topic_font = sf('VremenaGrotesk 64 bold').font
-    score_font = sf('PeppaPig 32').font
-
+    base_folder = basedir.replace("\\", "/")
+    print(base_folder + "/static/fonts/vremena-grotesk/Vremena.ttf")
+    topic_font = ImageFont.truetype(base_folder + "/static/fonts/vremena-grotesk/Vremena.ttf", 64)
+    score_font = ImageFont.truetype(base_folder + "/static/fonts/Peppa Pig-FontZillion/peppa pig.ttf", 32)
+    # sf = SimPILFont(os.path.join(basedir, 'static/fonts/vremena-grotesk') + '/', 
+    #                 os.path.join(basedir, 'static/fonts/Peppa Pig-FontZillion') + '/')
+    # topic_font = sf('VremenaGrotesk 64 bold').font
+    # score_font = sf('PeppaPig 32').font
+    # sf.export()
 
     # Score text
     draw.text((250,100), f"you got {score}/7", (0,0,0), font=score_font, align="center", anchor="ms")
