@@ -16,7 +16,8 @@ def generate_scorecard(rgb: str, topic: str, score: str):
     draw = ImageDraw.Draw(img)
 
     # Sort out fonts
-    sf = SimPILFont(os.path.join(basedir, 'static/fonts/vremena-grotesk'), os.path.join(basedir, 'static/fonts/Peppa Pig-FontZillion'))
+    sf = SimPILFont(os.path.join(basedir, 'static/fonts/vremena-grotesk') + '/', 
+                    os.path.join(basedir, 'static/fonts/Peppa Pig-FontZillion') + '/')
     topic_font = sf('VremenaGrotesk 64 bold').font
     score_font = sf('PeppaPig 32').font
 
