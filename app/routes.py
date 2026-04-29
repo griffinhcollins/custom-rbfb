@@ -76,5 +76,5 @@ def credits():
 
 @app.route("/share/<urlval>")
 def share(urlval):
-    shareurl = f"http://127.0.0.1:5000/view/{urlval}"
+    shareurl = f"http://griffinhcollins.xyz/view/{urlval}"
     return render_template("share.html", url=shareurl)
