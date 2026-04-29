@@ -22,11 +22,13 @@ def new():
     form = NewRBFB()
     if form.validate_on_submit():
         rbfb = RBFB(topic=form.topic.data)
+        rbfb.urlval = hex(hash(str(rbfb.id)))
         rbfb.author = form.author.data or "Anonymous"
         rbfb.date = date.today()
+        # flash(
+        #     f"Created RBFB with topic {form.topic.data}, share here: http://127.0.0.1:5000/view/{rbfb.urlval}"
+        # )
         db.session.add(rbfb)
-        db.session.flush()
-        rbfb.urlval = hex(hash(str(rbfb.id)))
         for question in form.questions:
             c = Candidate(
                 value=question.entry.data, real=question.real.data, parent=rbfb
