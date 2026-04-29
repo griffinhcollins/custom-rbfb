@@ -7,7 +7,7 @@ from app.imagegen import generate_scorecard
 import colorsys, random
 import io
 import base64
-from datetime import date
+import datetime
 
 
 @app.route("/")
@@ -22,9 +22,9 @@ def new():
     form = NewRBFB()
     if form.validate_on_submit():
         rbfb = RBFB(topic=form.topic.data)
-        rbfb.urlval = hex(hash(str(rbfb.id)))
+        rbfb.urlval = hex(hash(random.getrandbits(64)))
         rbfb.author = form.author.data or "Anonymous"
-        rbfb.date = date.today()
+        rbfb.date = datetime.date.today()
         # flash(
         #     f"Created RBFB with topic {form.topic.data}, share here: http://127.0.0.1:5000/view/{rbfb.urlval}"
         # )
