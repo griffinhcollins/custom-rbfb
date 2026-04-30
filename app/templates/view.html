@@ -33,9 +33,9 @@
 </table>
 
 {# Button to return home after scoring #}
-<div id="return-button" style="display: none">
+<div style="display: flex; justify-content: center; padding: 6px">
   <form action="{{ url_for('index') }}">
-    <input type="submit" value="Return Home" />
+    <input id="return-button" style="display: none" type="submit" value="Return Home" />
   </form>
 </div>
 

@@ -34,7 +34,8 @@ body {
 
 [id^="fake-button-"],
 [id^="real-button-"],
-#submit {
+#submit,
+#return-button {
     margin: 10px;
     border-radius: 32px;
     text-transform: uppercase;
@@ -63,13 +64,15 @@ body {
 
 [id^="fake-button-"]:hover,
 [id^="real-button-"]:hover,
-#submit:hover {
+#submit:hover,
+#return-button:hover {
     background-color: khaki;
 }
 
 [id^="fake-button-"]:active,
 [id^="real-button-"]:active,
-#submit:active {
+#submit:active,
+#return-button:active {
     box-shadow: 0 0 0 2px black;
     transform: translateY(3px);
 }
