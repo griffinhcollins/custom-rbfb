@@ -8,11 +8,6 @@
 {# Score image at the end #}
 <div id="score-layout" style="display: none">
   <div><img id="score-image" /></div>
-  <div>
-    <form action="{{ url_for('index') }}">
-      <input type="submit" value="Return Home" />
-    </form>
-  </div>
 </div>
 
 {# Current Candidate #}
@@ -36,6 +31,13 @@
   </tr>
   {% endfor %}
 </table>
+
+{# Button to return home after scoring #}
+<div id="return-button" style="display: none">
+  <form action="{{ url_for('index') }}">
+    <input type="submit" value="Return Home" />
+  </form>
+</div>
 
 {# Real Fake Buttons #}
 <table id="centred-table">
@@ -96,11 +98,12 @@
       // Game over: calculate score
       if (candidateIndex == 6) {
         document.getElementById("candidate-container").style.display = "none"
-       // document.getElementById("answer-table").style.display = "none"
+        // document.getElementById("answer-table").style.display = "none"
 
         imgPromise.then(imgURL => {
           document.getElementById("score-image").src = imgURL
           document.getElementById("score-layout").style.display = "block"
+          document.getElementById("return-button").style.display = "block"
         })
       }
     })
