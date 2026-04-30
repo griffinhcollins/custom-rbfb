@@ -27,8 +27,7 @@ body {
 #answer-table {
     margin: 0px auto;
     border-collapse: collapse;
-    width: 380px;
-    max-width: calc(100vw - 100px);
+    width: calc(100vw - 100px);
     table-layout: fixed;
 
 }
