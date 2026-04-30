@@ -91,12 +91,6 @@ body {
     height: 32px;
 }
 
-[id^="rf-tick-"] {
-    background-color: aqua;
-}
-[id^="rf-truth-"] {
-    background-color: aqua;
-}
 
 
 [id^="rf-name-"] {
