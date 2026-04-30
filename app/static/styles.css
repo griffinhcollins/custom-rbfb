@@ -16,7 +16,7 @@ body {
 
 
 /* Index */
-#index-table{
+#index-table {
     margin-left: auto;
     margin-right: auto;
     border-spacing: 20px 10px;
@@ -27,6 +27,9 @@ body {
 #answer-table {
     margin: 0px auto;
     border-collapse: collapse;
+    width: 380px;
+    max-width: calc(100vw - 100px);
+    table-layout: fixed;
 
 }
 
@@ -52,7 +55,7 @@ body {
     border: solid 2px black;
     border-radius: 32px;
     color: black;
-    
+
 }
 
 #submit {
@@ -86,8 +89,15 @@ body {
 [id^="rf-tick-"],
 [id^="rf-truth-"] {
     height: 32px;
-    width: calc(30vw);
 }
+
+[id^="rf-tick-"] {
+    background-color: aqua;
+}
+[id^="rf-truth-"] {
+    background-color: aqua;
+}
+
 
 [id^="rf-name-"] {
     text-transform: uppercase;

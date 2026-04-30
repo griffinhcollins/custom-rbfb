@@ -13,7 +13,6 @@
       <input type="submit" value="Return Home" />
     </form>
   </div>
-
 </div>
 
 {# Current Candidate #}
@@ -97,7 +96,7 @@
       // Game over: calculate score
       if (candidateIndex == 6) {
         document.getElementById("candidate-container").style.display = "none"
-        document.getElementById("answer-table").style.display = "none"
+       // document.getElementById("answer-table").style.display = "none"
 
         imgPromise.then(imgURL => {
           document.getElementById("score-image").src = imgURL
