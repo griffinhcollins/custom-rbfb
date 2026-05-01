@@ -16,11 +16,59 @@ body {
 
 
 /* Index */
+
 #index-table {
+    /* This merges double borders into single lines */
+    border-collapse: collapse;
+    width: 70%;
     margin-left: auto;
     margin-right: auto;
     border-spacing: 20px 10px;
 }
+
+#index-table tr{
+    height: 32px;
+}
+
+#index-table tr:nth-child(even){
+    background-color: palegoldenrod;
+}
+#index-table tr:nth-child(odd){
+    background-color: burlywood;
+}
+
+#index-table th,
+#index-table td {
+    /* border: thickness style color; */
+    border: 1px solid black;
+}
+
+
+/* #index-table {
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 20px 10px;
+}
+
+#index-table table{
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 100%
+}
+
+#index-table th, #index-table td{
+    border: 1px solid black;
+
+}
+
+
+#index-left {
+    text-align: left;
+}
+
+#index-right {
+    text-align: right;
+} */
 
 /* View */
 
