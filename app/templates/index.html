@@ -4,18 +4,18 @@
 
 <h1>Welcome to RBFB Custom</h1>
 <table id="index-table">
-<th>Topic</th>
-<th>Author</th>
-<th>Date Created</th>
+<th id="index-left">Topic</th>
+<th id="index-centre">Author</th>
+<th id="index-right">Date Created</th>
     {% for post in posts|reverse %}
     <tr>
-        <td>
+        <td id="index-left">
             <a href="/view/{{ post.urlval }}">{{ post.topic }}</a>
         </td>
-        <td>
+        <td id="index-centre">
             <div>{{ post.author }}</a>
         </td>
-        <td>
+        <td id="index-right">
             <div>{{ post.date }}</a>
         </td>
     </tr>
