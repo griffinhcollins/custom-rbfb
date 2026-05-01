@@ -16,7 +16,7 @@ body {
 
 
 /* Index */
-#index-table{
+#index-table {
     margin-left: auto;
     margin-right: auto;
     border-spacing: 20px 10px;
@@ -27,12 +27,15 @@ body {
 #answer-table {
     margin: 0px auto;
     border-collapse: collapse;
+    width: calc(100vw - 100px);
+    table-layout: fixed;
 
 }
 
 [id^="fake-button-"],
 [id^="real-button-"],
-#submit {
+#submit,
+#return-button {
     margin: 10px;
     border-radius: 32px;
     text-transform: uppercase;
@@ -52,7 +55,7 @@ body {
     border: solid 2px black;
     border-radius: 32px;
     color: black;
-    
+
 }
 
 #submit {
@@ -61,13 +64,15 @@ body {
 
 [id^="fake-button-"]:hover,
 [id^="real-button-"]:hover,
-#submit:hover {
+#submit:hover,
+#return-button:hover {
     background-color: khaki;
 }
 
 [id^="fake-button-"]:active,
 [id^="real-button-"]:active,
-#submit:active {
+#submit:active,
+#return-button:active {
     box-shadow: 0 0 0 2px black;
     transform: translateY(3px);
 }
@@ -86,8 +91,9 @@ body {
 [id^="rf-tick-"],
 [id^="rf-truth-"] {
     height: 32px;
-    width: calc(30vw);
 }
+
+
 
 [id^="rf-name-"] {
     text-transform: uppercase;
